@@ -66,13 +66,11 @@ class Adventurer extends Character {
 
   constructor(name, role) {
     super(name);
-
     if (!Adventurer.ROLES.includes(role)) {
       throw new Error(
         `Invalid role: ${role}. Must be one of: ${Adventurer.ROLES.join(", ")}`
       );
     }
-
     this.role = role;
     this.inventory.push("bedroll", "50 gold coins");
   }
@@ -80,6 +78,32 @@ class Adventurer extends Character {
   scout() {
     console.log(`${this.name} is scouting ahead...`);
     this.roll();
+  }
+
+  duel(opponent) {
+    console.log(`⚔️ ${this.name} challenges ${opponent.name} to a duel!`);
+
+    while (this.health > 50 && opponent.health > 50) {
+      const myRoll = this.roll();
+      const opponentRoll = opponent.roll();
+
+      if (myRoll > opponentRoll) {
+        opponent.health -= 1;
+        console.log(
+          `${this.name} wins the round. ${opponent.name}'s health: ${opponent.health}`
+        );
+      } else if (opponentRoll > myRoll) {
+        this.health -= 1;
+        console.log(
+          `${opponent.name} wins the round. ${this.name}'s health: ${this.health}`
+        );
+      } else {
+        console.log("It's a tie! No damage dealt.");
+      }
+    }
+
+    const winner = this.health > 50 ? this.name : opponent.name;
+    console.log(`🏆 The duel is over! ${winner} is victorious!`);
   }
 }
 
@@ -172,3 +196,71 @@ const jesse = healerGuild.generate("Jesse");
 const kai = healerGuild.generate("Kai");
 
 console.log(healerGuild.findByName("Jesse"));
+
+//part 6
+
+// duel(opponent) {
+//   console.log(`⚔️ ${this.name} challenges ${opponent.name} to a duel!`);
+
+//   while (this.health > 50 && opponent.health > 50) {
+//     const myRoll = this.roll();
+//     const opponentRoll = opponent.roll();
+
+//     if (myRoll > opponentRoll) {
+//       opponent.health -= 1;
+//       console.log(`${this.name} wins the round. ${opponent.name}'s health: ${opponent.health}`);
+//     } else if (opponentRoll > myRoll) {
+//       this.health -= 1;
+//       console.log(`${opponent.name} wins the round. ${this.name}'s health: ${this.health}`);
+//     } else {
+//       console.log("It's a tie! No damage dealt.");
+//     }
+//   }
+
+//   const winner = this.health > 50 ? this.name : opponent.name;
+//   console.log(`🏆 The duel is over! ${winner} is victorious!`);
+// }
+
+const fighter1 = new Adventurer("Thorne", "Fighter");
+const fighter2 = new Adventurer("Mira", "Fighter");
+
+fighter1.duel(fighter2);
+
+//part 7
+
+class SWE extends Character {
+  constructor(name, element) {
+    super(name);
+    this.element = element;
+    this.health = 300;
+    this.inventory.push("Linux Computer");
+  }
+
+  socialAwkwardness(target) {
+    const damage = Math.floor(Math.random() * 10) + 5;
+    target.health -= damage;
+    console.log(
+      `${this.name} gives ${this.element} to ${target.name}, dealing ${damage} social damage!`
+    );
+  }
+}
+
+const Jesse = new SWE("Jesse", "anxiety");
+Jesse.socialAwkwardness(robin);
+
+class upperManagment extends Character {
+  constructor(name, element) {
+    super(name);
+    this.element = element;
+    this.health = 1;
+    this.inventory.push("Jira Tickets");
+  }
+
+  performanceReview(target) {
+    const damage = Math.floor(Math.random() * 10) + 5;
+    target.health -= damage;
+    console.log(
+      `${this.name} gives ${target.name} a performance review! It deals ${damage} damage!`
+    );
+  }
+}
