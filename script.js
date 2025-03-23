@@ -114,7 +114,7 @@ class Companion extends Character {
     super(name);
     this.type = type;
     this.ability = ability;
-    this.loyalty = 5; // Scale of 1–10
+    this.loyalty = 5;
   }
 
   assist() {
@@ -133,7 +133,7 @@ class Companion extends Character {
 
   useAbility() {
     console.log(`${this.name} uses their special ability: ${this.ability}!`);
-    this.roll(); // maybe ability success depends on a roll
+    this.roll(); 
   }
 }
 
