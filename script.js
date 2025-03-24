@@ -240,7 +240,7 @@ class SWE extends Character {
     const damage = Math.floor(Math.random() * 10) + 5;
     target.health -= damage;
     console.log(
-      `${this.name} gives ${this.element} to ${target.name}, dealing ${damage} social damage!`
+      `${this.name} gives ${this.element} to ${target.name}, dealing ${damage} social damage 🙀!`
     );
   }
 }
@@ -253,14 +253,14 @@ class upperManagment extends Character {
     super(name);
     this.element = element;
     this.health = 1;
-    this.inventory.push("Jira Tickets");
+    this.inventory.push("Jira Tickets🔖");
   }
 
   performanceReview(target) {
     const damage = Math.floor(Math.random() * 10) + 5;
     target.health -= damage;
     console.log(
-      `${this.name} gives ${target.name} a performance review! It deals ${damage} damage!`
+      `${this.name} gives ${target.name} a performance review 📊! It deals ${damage} damage 💣!`
     );
   }
 }
